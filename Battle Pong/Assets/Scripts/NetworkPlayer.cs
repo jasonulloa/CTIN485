@@ -1,15 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NetworkPlayer : MonoBehaviour {
+public class NetworkPlayer : Photon.MonoBehaviour {
 
-	// Use this for initialization
 	void Start () {
-	
+		if (photonView.isMine) {
+
+		} else {
+
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+		if (stream.isWriting) {
+			stream.SendNext (transform.position);
+			stream.SendNext (transform.rotation);
+		} else {
+			transform.position = (Vector3)stream.ReceiveNext ();
+			transform.rotation = (Quaternion)stream.ReceiveNext ();
+		}
 	}
 }

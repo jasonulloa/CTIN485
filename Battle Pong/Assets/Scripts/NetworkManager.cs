@@ -3,9 +3,10 @@ using System.Collections;
 
 public class NetworkManager : MonoBehaviour {
 	const string VERSION = "v0.0.1";
-	public string roomName = "BP";
-	public string playerPrefabName = "Player One";
+	public string roomName = "BattlePong";
+	public string playerPrefabName = "Paddle";
 	public Transform playerOneSpawnPoint;
+	public Transform playerTwoSpawnPoint;
 
 	void Start () {
 		PhotonNetwork.ConnectUsingSettings (VERSION);	
@@ -18,5 +19,6 @@ public class NetworkManager : MonoBehaviour {
 
 	void OnJoinedRoom() {
 		PhotonNetwork.Instantiate (playerPrefabName, playerOneSpawnPoint.position, playerOneSpawnPoint.rotation, 0);
+		PhotonNetwork.Instantiate (playerPrefabName, playerTwoSpawnPoint.position, playerTwoSpawnPoint.rotation, 0);
 	}
 }
