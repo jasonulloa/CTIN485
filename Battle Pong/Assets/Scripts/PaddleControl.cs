@@ -2,14 +2,18 @@
 using System.Collections;
 
 public class PaddleControl : MonoBehaviour {
+	float speed;
 
-	// Use this for initialization
 	void Start () {
-	
+		speed = 1.0f;
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
-	
+		if (Input.GetKey(KeyCode.UpArrow)){
+			this.transform.Translate(-speed, 0, 0);
+		}
+		if (Input.GetKey(KeyCode.DownArrow)){
+			this.transform.Translate(speed, 0, 0);
+		}
 	}
 }

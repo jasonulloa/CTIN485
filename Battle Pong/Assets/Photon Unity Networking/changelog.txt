@@ -1,3 +1,9 @@
+v1.78 (1. November 2016)
+Fixed: NetworkingPeer ownership assignment on late join when MasterClient is involved.
+Fixed: SetTeam() (in PunTeam) now assigns the team to the target player, instead of the local one. You could use the extension method on any PhotonPlayer (not only on yours).
+Fixed: PlayerVariable.cs material assignment to take MasterClient as a special case and avoid color mixup.
+
+
 v1.77 (24. October 2016)
 Changed: Transfer Ownership requests are now handled a little different. For "takeover", any player's request is successful if taking from the correct, current owner OR when taking from the master client (even though the owner is technically the room). E.g.: You can takeover from actor 1, even when clients registered the object's owner as 0 (null is used for "the room", which is equivalent to "belongs to master client").
 Fixed: late joining would not be aware of ownership transfers. Now owner is matching who sends events.
@@ -10,7 +16,6 @@ Fixed: The RoomOptions.EmptyRoomTtl got set if only PlayerTtl was > 0. Now both 
 Updated: Api reference for FindFriends, AuthenticationValues. It should be clearer how the userId is set (and if the playerName gets used at all).
 Fixed: An issue in NetworkingPeer.NewSceneLoaded(). It did not clean up correctly in v1.76 on loading scenes.
 Updated: PhotonNetwork.BackgroundTimeout. It's now disconnecting (not timing out) and the doc got updated for that.
-
 
 v1.76 (21. September 2016)
 Fixed: Compatibility with ".Net 2.0 Subset". This can be used again.
