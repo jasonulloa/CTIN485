@@ -99,7 +99,7 @@ public static class PhotonNetwork
     public static bool connectedAndReady
     {
         get
-        {
+		{
             // connected property will check offlineMode and networkingPeer being null
             if (!connected)
             {

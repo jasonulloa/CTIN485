@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PaddleControl : MonoBehaviour {
+public class LeftPaddleControl : MonoBehaviour {
 	float speed;
 
 	void Start () {
