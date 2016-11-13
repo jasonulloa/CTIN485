@@ -46,8 +46,8 @@ public class ChatGui : MonoBehaviour, IChatClientListener
     public bool ShowState = true;
     public Text StateText; // set in inspector
 
-    private string userIdInput = "";
-    private static string WelcomeText = "Welcome to chat. Type \\help to list commands.";
+    //private string userIdInput = "";
+   // private static string WelcomeText = "Welcome to chat. Type \\help to list commands.";
     private static string HelpText = "\n\\subscribe <list of channelnames> or \\s <list of channelnames> subscribes channels.\n\\unsubscribe <list of channelnames> or \\u <list of channelnames> leaves channels.\n\\join <channelname> or \\j <channelname> switches the active channel.\n\\msg <username> <message> send private message to user.\n\\clear clears the current chat tab. private chats get closed.\n\\help gets this help message.";
 
 
