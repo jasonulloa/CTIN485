@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 public class PaddleControl : NetworkBehaviour {
 	public GameObject bulletPrefab;
 	public Transform bulletSpawn;
+	public int playerID;
 	float speed;
 
 	void Start () {
@@ -42,5 +43,12 @@ public class PaddleControl : NetworkBehaviour {
 
 	public override void OnStartLocalPlayer(){
 		GetComponent<MeshRenderer> ().material.color = Color.red;
+		if(this.transform.position.x < 0){
+			this.playerID = 1;
+			this.GetComponent<Health> ().SetPlayer (playerID);
+		} else if (this.transform.position.x > 0){
+			this.playerID = 2;
+			this.GetComponent<Health> ().SetPlayer (playerID);
+		}
 	}
 }
