@@ -7,6 +7,7 @@ public class PaddleControl : NetworkBehaviour {
 	public Transform bulletSpawn;
 	float speed;
 
+
 	void Start () {
 		speed = 1.0f;
 	}
@@ -42,5 +43,15 @@ public class PaddleControl : NetworkBehaviour {
 
 	public override void OnStartLocalPlayer(){
 		GetComponent<MeshRenderer> ().material.color = Color.red;
+	}
+
+	public override void OnStartClient(){
+		GameObject spawnPoint = GameObject.Find ("Ball Spawn Point");
+		BallSpawner	spawner = spawnPoint.GetComponent<BallSpawner> ();
+		if (transform.position.x < 0) {
+			spawner.player1Start = true;
+		} else if (transform.position.x > 0) {
+			spawner.player2Start = true;
+		}
 	}
 }
