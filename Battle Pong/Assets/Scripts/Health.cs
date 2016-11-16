@@ -8,17 +8,14 @@ public class Health : NetworkBehaviour {
 	[SyncVar (hook = "OnChangeHealth")] public int currentHealth = maxHealth;
 	public HealthbarManager healthMan;
 	public RectTransform healthbar;
-	public int playerID;
 	public GameObject healthbarManager;
 
-	public void SetPlayer(int ID){
-		this.playerID = ID;
-
-		if (playerID == 1) {
+	public override void OnStartClient(){
+		if (this.transform.position.x < 0) {
 			this.healthbarManager = GameObject.Find ("Player One Healthbar");
 			this.healthMan = this.healthbarManager.GetComponent<HealthbarManager> ();
 			this.healthbar = this.healthMan.healthbar;
-		} else if (playerID == 2) {
+		} else if (this.transform.position.x > 0) {
 			this.healthbarManager = GameObject.Find ("Player Two Healthbar");
 			this.healthMan = this.healthbarManager.GetComponent<HealthbarManager> ();
 			this.healthbar = this.healthMan.healthbar;
@@ -30,18 +27,18 @@ public class Health : NetworkBehaviour {
 			return;
 		}
 
-		this.currentHealth -= amount;
-		if (this.currentHealth <= 0) {
-			this.currentHealth = 0;
+		currentHealth -= amount;
+		if (currentHealth <= 0) {
+			currentHealth = 0;
 			Debug.Log ("U R DED LOL");
 		}
 
-		if (this.healthbar == null) {
-			this.healthbar = this.healthMan.healthbar;
+		if (healthbar == null) {
+			healthbar = healthMan.healthbar;
 		}
 	}
 
 	public void OnChangeHealth(int health){
-		this.healthbar.sizeDelta = new Vector2 (health * 2, this.healthbar.sizeDelta.y);
+		healthbar.sizeDelta = new Vector2 (health * 2, healthbar.sizeDelta.y);
 	}
 }
