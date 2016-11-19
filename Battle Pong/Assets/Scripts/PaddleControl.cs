@@ -6,7 +6,8 @@ public class PaddleControl : NetworkBehaviour {
 	public GameObject bulletPrefab;
 	public Transform bulletSpawn;
 	float speed;
-
+	float fireCooldown = 2;
+	bool canFire = true;
 
 	void Start () {
 		speed = 1.0f;
@@ -29,7 +30,18 @@ public class PaddleControl : NetworkBehaviour {
 		}
 
 		if(Input.GetKeyDown(KeyCode.Space)){
-			CmdFire ();
+			if (canFire) {
+				CmdFire ();
+				canFire = false;
+			}
+		}
+
+		if (!canFire && fireCooldown >= 0) {
+			fireCooldown -= 0.05f;
+			if (fireCooldown <= 0) {
+				canFire = true;
+				fireCooldown = 2;
+			}
 		}
 	}
 

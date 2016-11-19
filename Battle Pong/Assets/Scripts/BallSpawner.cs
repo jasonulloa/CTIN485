@@ -8,16 +8,20 @@ public class BallSpawner : NetworkBehaviour {
 	public bool player2Start = false;
 	GameObject ball;
 	bool ballInPlay = false;
-	//int counter = 3;
+	float counter = 5;
 
 	void Update(){
 		if (player1Start && player2Start) {
-			if (!ballInPlay) {
-				if (isServer) {
-					CmdLaunchBall ();
-					ballInPlay = true;
+			if (counter <= 0) {
+				if (!ballInPlay) {
+					if (isServer) {
+						CmdLaunchBall ();
+						ballInPlay = true;
+					}
 				}
 			}
+
+			counter -= 0.05f;
 		}
 	}
 	
@@ -32,8 +36,9 @@ public class BallSpawner : NetworkBehaviour {
 
 	[Command]
 	void CmdLaunchBall(){
-		Quaternion launchRotation = Quaternion.Euler (Random.Range (0.0f, 360.0f), 0, 0);
+		Quaternion launchRotation = Quaternion.Euler (0, Random.Range (0.0f, 360.0f), 0);
 		ball.transform.rotation = launchRotation;
 		ball.GetComponent<Rigidbody> ().velocity = ball.transform.forward * 50.0f;
+		counter = 5;
 	}
 }
