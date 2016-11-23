@@ -10,17 +10,26 @@ public class Health : NetworkBehaviour {
 	RectTransform healthbar;
 	GameObject healthbarManager;
 	GameObject spawnPoint;
-	//int playerID;
+	bool isDead = false;
+	float counter = 3;
+
+	void Update(){
+		if (isDead) {
+			if (counter <= 0) {
+				RpcRespawn ();
+			}
+
+			counter -= 0.05f;
+		}
+	}
 
 	public override void OnStartClient(){
 		if (transform.position.x < 0) {
-			//playerID = 1;
 			healthbarManager = GameObject.Find ("Player One Healthbar");
 			healthMan = healthbarManager.GetComponent<HealthbarManager> ();
 			healthbar = healthMan.healthbar;
 			spawnPoint = GameObject.Find ("Player One Spawn Point");
 		} else if (transform.position.x > 0) {
-			//playerID = 2;
 			healthbarManager = GameObject.Find ("Player Two Healthbar");
 			healthMan = healthbarManager.GetComponent<HealthbarManager> ();
 			healthbar = healthMan.healthbar;
@@ -35,8 +44,8 @@ public class Health : NetworkBehaviour {
 
 		currentHealth -= amount;
 		if (currentHealth <= 0) {
-			currentHealth = maxHealth;
-			RpcRespawn ();
+			transform.position = new Vector3(999, 999, 999);
+			isDead = true;
 		}
 	}
 
@@ -48,6 +57,7 @@ public class Health : NetworkBehaviour {
 	[ClientRpc]
 	void RpcRespawn(){
 		if (isLocalPlayer) {
+			currentHealth = maxHealth;
 			transform.position = spawnPoint.transform.position;
 		}
 	}

@@ -15,7 +15,7 @@ public class BallSpawner : NetworkBehaviour {
 			if (counter <= 0) {
 				if (!ballInPlay) {
 					if (isServer) {
-						CmdLaunchBall ();
+						CmdStartLaunchBall ();
 						ballInPlay = true;
 					}
 				}
@@ -35,10 +35,10 @@ public class BallSpawner : NetworkBehaviour {
 	}
 
 	[Command]
-	void CmdLaunchBall(){
+	void CmdStartLaunchBall(){
 		Quaternion launchRotation = Quaternion.Euler (0, Random.Range (0.0f, 360.0f), 0);
 		ball.transform.rotation = launchRotation;
-		ball.GetComponent<Rigidbody> ().velocity = ball.transform.forward * 50.0f;
+		ball.GetComponent<Rigidbody> ().velocity = ball.transform.forward * 75.0f;
 		counter = 5;
 	}
 }
