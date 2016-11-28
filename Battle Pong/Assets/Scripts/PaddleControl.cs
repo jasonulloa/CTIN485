@@ -6,7 +6,7 @@ public class PaddleControl : NetworkBehaviour {
 	public GameObject bulletPrefab;
 	public Transform bulletSpawn;
 	float speed;
-	float fireCooldown = 2;
+	float fireCooldown = 1.5f;
 	bool canFire = true;
 
 	void Start () {
@@ -40,7 +40,7 @@ public class PaddleControl : NetworkBehaviour {
 			fireCooldown -= 0.05f;
 			if (fireCooldown <= 0) {
 				canFire = true;
-				fireCooldown = 2;
+				fireCooldown = 1.5f;
 			}
 		}
 	}
@@ -58,8 +58,7 @@ public class PaddleControl : NetworkBehaviour {
 	}
 
 	public override void OnStartClient(){
-		GameObject spawnPoint = GameObject.Find ("Ball Spawn Point");
-		BallSpawner	spawner = spawnPoint.GetComponent<BallSpawner> ();
+		BallSpawner	spawner = GameObject.Find ("Ball Spawn Point").GetComponent<BallSpawner> ();
 		if (transform.position.x < 0) {
 			spawner.player1Start = true;
 		} else if (transform.position.x > 0) {
