@@ -35,7 +35,7 @@ public class Ball : MonoBehaviour {
 		if (gameover) {
 			scoreman = GameObject.Find ("ScoreManager").GetComponent<ScoreManager> ();
 			scoreman.ChangeString1("Game Over");
-			scoreman.ChangeString2("Host Press Enter to Restart");
+			scoreman.ChangeString2("Host Press Enter to Restart\nPress Escape to Quit");
 		}
 	}
 
@@ -54,7 +54,7 @@ public class Ball : MonoBehaviour {
 				scoreman.ChangeScore2 (point);
 			}
 
-			if (point < 11) {
+			if (point < 2) {
 				gameObject.transform.position = spawnPoint.transform.position;
 				int rt_arc = Random.Range (45, 135);
 				int lft_arc = Random.Range (225, 315);
