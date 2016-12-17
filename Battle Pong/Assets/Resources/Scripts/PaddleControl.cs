@@ -46,6 +46,10 @@ public class PaddleControl : NetworkBehaviour {
 				fireCooldown = 1.5f;
 			}
 		}
+    
+    if (Input.GetKeyDown (KeyCode.Escape)) {
+			Application.Quit ();
+		}
 	}
 
 	[Command]
